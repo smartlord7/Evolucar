@@ -37,18 +37,25 @@ namespace GeneticSharp.Runner.UnityApp.Commons
             MinChromosomeLength = minChromosomeLength;
             IsOrdered = isOrdered;
         }
-
+        
         public IList<IChromosome> Cross(IList<IChromosome> parents)
         {
             IChromosome parent1 = parents[0];
             IChromosome parent2 = parents[1];
             IChromosome offspring1 = parent1.CreateNew();
             IChromosome offspring2 = parent2.CreateNew();
-
-            //YOUR CODE HERE
-
-
-
+            int i;
+            if (RandomizationProvider.Current.GetDouble()<= crossoverProbability)
+            {
+                int cutPoint = RandomizationProvider.Current.GetInt(1, parent1.Length);
+                for (i = 0; i < cutPoint; i++)
+                {
+                    offspring1.ReplaceGene(i,parent2.GetGene(i));
+                    offspring2.ReplaceGene(i,parent1.GetGene(i));
+                    i += 1;
+                }
+            }
+            
             return new List<IChromosome> { offspring1, offspring2 };
             
         }
