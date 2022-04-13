@@ -52,7 +52,6 @@ namespace GeneticSharp.Runner.UnityApp.Commons
                 {
                     offspring1.ReplaceGene(i,parent2.GetGene(i));
                     offspring2.ReplaceGene(i,parent1.GetGene(i));
-                    i += 1;
                 }
             }
             

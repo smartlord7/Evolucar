@@ -32,7 +32,6 @@ public class SinglePointMutation : IMutation
                     chromosome.ReplaceGene(i,new Gene(1));
                 }
             }
-            i += 1;
         }
 
     }

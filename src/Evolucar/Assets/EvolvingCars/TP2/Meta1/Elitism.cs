@@ -16,10 +16,13 @@ public class Elitism : ReinsertionBase
     
     protected override IList<IChromosome> PerformSelectChromosomes(IPopulation population, IList<IChromosome> offspring, IList<IChromosome> parents)
     {
-        // YOUR CODE HERE
+       
         var old_population = population.CurrentGeneration.Chromosomes.OrderByDescending(p => p.Fitness).ToList(); //previous population sorted by fitness
-
-        
+        int i;
+        for (i = 0; i < eliteSize; i++)
+        {
+            offspring[i] = old_population[i];
+        }
 
         return offspring;
     }
