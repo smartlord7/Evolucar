@@ -47,12 +47,37 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 float NumberOfWheels = c.NumberOfWheels;
                 float CarMass = c.CarMass;
                 int IsRoadComplete = c.IsRoadComplete ? 1 : 0;
-
                 
                 fitness = IsRoadComplete;
 
+                if (NumberOfWheels > 4)
+                {
+                    fitness++;
+                }
 
-                c.Fitness = fitness;;
+                if (MaxDistance > 400)
+                {
+                    fitness++;
+                }
+
+                if (MaxDistanceTime > 5000)
+                {
+                    fitness++;
+                }
+
+                if (MaxVelocity > 7)
+                {
+                    fitness++;
+                }
+
+                if (CarMass > 100)
+                {
+                    fitness++;
+                }
+                
+                c.Fitness = fitness;
+                
+                
 
             } while (!c.Evaluated);
 
