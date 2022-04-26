@@ -31,7 +31,7 @@ public class Tournament : SelectionBase
 
         IList<CarChromosome> population = generation.Chromosomes.Cast<CarChromosome>().ToList(); // Current Population: We will select individuals from here 
         IList<IChromosome> parents = new List<IChromosome>(); //List that will return the individuals that will mate, i.e. that will undergo variation
-
+        
         int i;
         int k;
         for (i = 0; i < number; i++)
@@ -42,7 +42,7 @@ public class Tournament : SelectionBase
             for (k = 0; k < Size; k++)
             {
                 int individualIndex = randomIndexes[k];
-                if (winner.Equals(null) || population[individualIndex].Fitness > winnerFitness)
+                if (winner == null || population[individualIndex].Fitness > winnerFitness)
                 {
                     winner = population[individualIndex];
                     winnerFitness = population[individualIndex].Fitness;
