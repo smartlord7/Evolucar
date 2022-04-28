@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace GeneticSharp.Runner.UnityApp.Car
 {
-    public class CarFitness : IFitness
+    public class   CarFitness : IFitness
     {
         public CarFitness()
         {
@@ -50,28 +50,31 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 
                 fitness = IsRoadComplete;
 
-                if (NumberOfWheels > 4)
+                for (int i = 100; i <= 656; i += 100)
+                {
+                    if (MaxDistance > i)
+                    {
+                        fitness++;
+                    }
+                }
+                
+                if (NumberOfWheels > 6)
                 {
                     fitness++;
                 }
-
-                if (MaxDistance > 400)
+                
+                if (MaxDistanceTime < 30000)
                 {
                     fitness++;
                 }
-
-                if (MaxDistanceTime > 5000)
-                {
+                
+                if (MaxVelocity > 8)
+                { 
                     fitness++;
                 }
-
-                if (MaxVelocity > 7)
-                {
-                    fitness++;
-                }
-
-                if (CarMass > 100)
-                {
+                
+                if (CarMass > 165)
+                { 
                     fitness++;
                 }
                 
