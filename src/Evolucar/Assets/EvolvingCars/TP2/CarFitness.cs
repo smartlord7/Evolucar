@@ -50,33 +50,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 
                 fitness = IsRoadComplete;
 
-                for (int i = 100; i <= 656; i += 100)
-                {
-                    if (MaxDistance > i)
-                    {
-                        fitness++;
-                    }
-                }
-                
-                if (NumberOfWheels > 6)
-                {
-                    fitness++;
-                }
-                
-                if (MaxDistanceTime < 30000)
-                {
-                    fitness++;
-                }
-                
-                if (MaxVelocity > 8)
-                { 
-                    fitness++;
-                }
-                
-                if (CarMass > 165)
-                { 
-                    fitness++;
-                }
+                fitness = MaxDistance;
                 
                 c.Fitness = fitness;
                 
