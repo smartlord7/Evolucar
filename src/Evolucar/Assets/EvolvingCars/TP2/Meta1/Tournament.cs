@@ -25,16 +25,16 @@ public class Tournament : SelectionBase
     #region Constructors
 
     /// <summary>
-    /// 
+    /// Creates a new Tournament with the default size.
     /// </summary>
     public Tournament() : this(DEFAULT_TOURNAMENT_SIZE)
     {
     }
 
     /// <summary>
-    /// 
+    ///  Creates a new Tournament with a given size.
     /// </summary>
-    /// <param name="size"></param>
+    /// <param name="size">The number of individuals present in the tournament</param>
     public Tournament(int size) : base(DEFAULT_TOURNAMENT_SIZE)
     {
         Size = size;

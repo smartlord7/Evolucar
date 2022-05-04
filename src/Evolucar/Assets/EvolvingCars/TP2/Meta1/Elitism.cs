@@ -31,7 +31,7 @@ public class Elitism : ReinsertionBase
     /// <param name="population">The global population of the experiment</param>
     /// <param name="offspring">The generated offspring of the current generation</param>
     /// <param name="parents">The parents of the current generation</param>
-    /// <returns></returns>
+    /// <returns>The selected chromosomes.</returns>
     protected override IList<IChromosome> PerformSelectChromosomes(IPopulation population, IList<IChromosome> offspring, IList<IChromosome> parents)
         => population.CurrentGeneration.Chromosomes.OrderByDescending(p => p.Fitness).Take(eliteSize) as IList<IChromosome>;
 

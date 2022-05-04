@@ -7,6 +7,14 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 {
     public class SinglePointCrossover : ICrossover
     {
+        #region Const
+
+        const int DEFAULT_PARENTS_NUMBER = 2;
+        const int DEFAULT_OFFSPRING_NUMBER = 2;
+        const int DEFAULT_MIN_CHROMOSOME_LENGTH = 2;
+
+        #endregion Const
+
         #region Public Properties
         public int ParentsNumber { get; private set; }
         public int ChildrenNumber { get; private set; }
@@ -26,21 +34,21 @@ namespace GeneticSharp.Runner.UnityApp.Commons
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Creates a new SinglePointCrossover with the specified crossover probability and the remaining parameters as default.
         /// </summary>
-        /// <param name="crossoverProbability"></param>
-        public SinglePointCrossover(float crossoverProbability) : this(2, 2, 2, true)
+        /// <param name="crossoverProbability">A number, between 0 and 1, that specifies the probability of the crossover ocurrence</param>
+        public SinglePointCrossover(float crossoverProbability) : this(DEFAULT_PARENTS_NUMBER, DEFAULT_OFFSPRING_NUMBER, DEFAULT_MIN_CHROMOSOME_LENGTH, true)
         {
             this.crossoverProbability = crossoverProbability;
         }
 
         /// <summary>
-        /// 
+        /// Creates a new custom SinglePointCrossover.
         /// </summary>
-        /// <param name="parentsNumber"></param>
-        /// <param name="offSpringNumber"></param>
-        /// <param name="minChromosomeLength"></param>
-        /// <param name="isOrdered"></param>
+        /// <param name="parentsNumber">The number of individual from which the offspring genotype will be based in.</param>
+        /// <param name="offSpringNumber">The number of generated individuals by the parents.</param>
+        /// <param name="minChromosomeLength">The minimum number of genes in each offspring chromosome.</param>
+        /// <param name="isOrdered">Specifies if the operator is ordered (if it can keep the chromosome order).</param>
         public SinglePointCrossover(int parentsNumber, int offSpringNumber, int minChromosomeLength, bool isOrdered)
         {
             ParentsNumber = parentsNumber;
@@ -55,15 +63,15 @@ namespace GeneticSharp.Runner.UnityApp.Commons
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Performs the crossing over a list of chromosomes.
         /// </summary>
-        /// <param name="parents"></param>
-        /// <returns></returns>
-        public IList<IChromosome> Cross(IList<IChromosome> parents)
+        /// <param name="parents">The chromosomes of the individuals from which the offspring genotype will be based in</param>
+        /// <returns>The generated chromosomes</returns>
+        public IList<IChromosome> Cross(IList<IChromosome> parentsChromosomes)
         {
             int i;
-            var parent1 = parents[0];
-            var parent2 = parents[1];
+            var parent1 = parentsChromosomes[0];
+            var parent2 = parentsChromosomes[1];
             var offspring1 = parent1.CreateNew();
             var offspring2 = parent2.CreateNew();
 

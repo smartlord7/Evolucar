@@ -14,7 +14,7 @@ public class SinglePointMutation : IMutation
     #region Constructors
 
     /// <summary>
-    /// 
+    /// Creates a new SinglePointMutation.
     /// </summary>
     public SinglePointMutation()
     {
@@ -27,10 +27,10 @@ public class SinglePointMutation : IMutation
     #region Public Methods
 
     /// <summary>
-    /// 
+    /// Performs the mutation of a chromosome, with a certain probability, by looping through its genes.
     /// </summary>
-    /// <param name="chromosome"></param>
-    /// <param name="probability"></param>
+    /// <param name="chromosome">The chromosome to be mutated.</param>
+    /// <param name="probability">A number, between 0 and 1, that specifies if the current gene is to be mutatded.</param>
     public void Mutate(IChromosome chromosome, float probability)
     {
         int i;

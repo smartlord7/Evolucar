@@ -25,7 +25,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Creates a new CarFitness.
         /// </summary>
         public CarFitness()
         {
@@ -39,10 +39,10 @@ namespace GeneticSharp.Runner.UnityApp.Car
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Performs the evaluation of the fitness of a given chromosome.
         /// </summary>
-        /// <param name="chromosome"></param>
-        /// <returns></returns>
+        /// <param name="chromosome">The chromosome to be evaluated.</param>
+        /// <returns>A number that specifies the chromosome/individual fitness.</returns>
         public double Evaluate(IChromosome chromosome)
         {
             float fitness;
