@@ -1,38 +1,54 @@
-using GeneticSharp.Domain.Fitnesses;
-using GeneticSharp.Domain.Chromosomes;
-using System.Threading;
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
-using System;
-using System.Linq;
+using System.Threading;
+using GeneticSharp.Domain.Chromosomes;
+using GeneticSharp.Domain.Fitnesses;
 
 namespace GeneticSharp.Runner.UnityApp.Car
 {
-    public class   CarFitness : IFitness
+    public class CarFitness : IFitness
     {
+        #region Const
+
+        const int TIME_FITNESS_EVUALTION= 1000;
+
+        #endregion Const
+
+
+        #region Public Properties
+
+        public BlockingCollection<CarChromosome> ChromosomesToBeginEvaluation { get; private set; }
+        public BlockingCollection<CarChromosome> ChromosomesToEndEvaluation { get; private set; }
+
+        #endregion Public Properties
+
+
+        #region Constructors
+
         public CarFitness()
         {
             ChromosomesToBeginEvaluation = new BlockingCollection<CarChromosome>();
             ChromosomesToEndEvaluation = new BlockingCollection<CarChromosome>();
         }
 
-        public BlockingCollection<CarChromosome> ChromosomesToBeginEvaluation { get; private set; }
-        public BlockingCollection<CarChromosome> ChromosomesToEndEvaluation { get; private set; }
+        #endregion Constructors
+
+
+        #region Public Methods
+
         public double Evaluate(IChromosome chromosome)
         {
+            float fitness;
             var c = chromosome as CarChromosome;
+
             ChromosomesToBeginEvaluation.Add(c);
 
-            float fitness = 0; 
             do
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(TIME_FITNESS_EVUALTION);
 
-                /*YOUR CODE HERE: You should define de fitness function here!!
+                /* 
                  * 
-                 * 
-                 * You have access to the following information regarding how the car performed in the scenario:
+                 * Access to the following information regarding how the car performed in the scenario:
                  * MaxDistance: Maximum distance reached by the car;
                  * MaxDistanceTime: Time taken to reach the MaxDistance;
                  * MaxVelocity: Maximum Velocity reached by the car;
@@ -41,33 +57,31 @@ namespace GeneticSharp.Runner.UnityApp.Car
                  * IsRoadComplete: This variable has the value 1 if the car reaches the end of the road, 0 otherwise.
                  * 
                 */
-                float MaxDistance = c.MaxDistance;
-                float MaxDistanceTime = c.MaxDistanceTime;
-                float MaxVelocity = c.MaxVelocity;
-                float NumberOfWheels = c.NumberOfWheels;
-                float CarMass = c.CarMass;
-                int IsRoadComplete = c.IsRoadComplete ? 1 : 0;
-                
-                fitness = IsRoadComplete;
+                var maxDistance = c.MaxDistance;
+                var maxDistanceTime = c.MaxDistanceTime;
+                var maxVelocity = c.MaxVelocity;
+                var numberOfWheels = c.NumberOfWheels;
+                var carMass = c.CarMass;
+                var isRoadComplete = c.IsRoadComplete ? 1 : 0;
 
-                fitness = MaxDistance;
-                
+
+                fitness = maxDistance;
+
                 c.Fitness = fitness;
-                
-                
 
             } while (!c.Evaluated);
 
-            ChromosomesToEndEvaluation.Add(c);
+                ChromosomesToEndEvaluation.Add(c);
 
             do
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(TIME_FITNESS_EVUALTION);
             } while (!c.Evaluated);
 
 
             return fitness;
         }
-
     }
+
+    #endregion Public Methods
 }
