@@ -171,13 +171,13 @@ public abstract class SampleControllerBase : MonoBehaviour
         m_previousAverageFitness = GA.Population.CurrentGeneration.Chromosomes.Average(c => c.Fitness.Value);
 
         var best = GA.BestChromosome as CarChromosome;
-        string pathToFile = $"${this.folderName}/${NAME_FILE_EVOLUTION}";
-        string generationInfo = $"{GA.GenerationsNumber}${DELIMITER_OUTPUT}{m_previousBestFitness}${DELIMITER_OUTPUT}{m_previousAverageFitness}${DELIMITER_OUTPUT}{best.MaxDistance}${DELIMITER_OUTPUT}{best.MaxDistanceTime}${DELIMITER_OUTPUT}{best.NumberOfWheels}${DELIMITER_OUTPUT}{best.CarMass}${DELIMITER_OUTPUT}{best.IsRoadComplete}" + Environment.NewLine;
+        string pathToFile = $"{this.folderName}/{NAME_FILE_EVOLUTION}";
+        string generationInfo = $"{GA.GenerationsNumber}{DELIMITER_OUTPUT}{m_previousBestFitness}{DELIMITER_OUTPUT}{m_previousAverageFitness}{DELIMITER_OUTPUT}{best.MaxDistance}{DELIMITER_OUTPUT}{best.MaxDistanceTime}{DELIMITER_OUTPUT}{best.NumberOfWheels}{DELIMITER_OUTPUT}{best.CarMass}{DELIMITER_OUTPUT}{best.IsRoadComplete}" + Environment.NewLine;
 
 
         if (!File.Exists(pathToFile))
         {
-            string header = $"Generation${DELIMITER_OUTPUT}BestFitness${DELIMITER_OUTPUT}AverageFitnessPopulation${DELIMITER_OUTPUT}BestMaxDistance${DELIMITER_OUTPUT}BestMaxDistanceTime${DELIMITER_OUTPUT}BestNumberOfWheels${DELIMITER_OUTPUT}BestCarMass${DELIMITER_OUTPUT}BestIsRoadComplete" + Environment.NewLine;
+            string header = $"Generation{DELIMITER_OUTPUT}BestFitness{DELIMITER_OUTPUT}AverageFitnessPopulation{DELIMITER_OUTPUT}BestMaxDistance{DELIMITER_OUTPUT}BestMaxDistanceTime{DELIMITER_OUTPUT}BestNumberOfWheels{DELIMITER_OUTPUT}BestCarMass{DELIMITER_OUTPUT}BestIsRoadComplete" + Environment.NewLine;
             Debug.Log(header);
 
             File.WriteAllText(pathToFile, header);
