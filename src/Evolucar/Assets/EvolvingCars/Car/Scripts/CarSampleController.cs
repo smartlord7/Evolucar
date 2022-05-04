@@ -75,8 +75,6 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 m_evaluationPool.ReleaseAll();
             };
 
-
-
             return ga;
         }
 

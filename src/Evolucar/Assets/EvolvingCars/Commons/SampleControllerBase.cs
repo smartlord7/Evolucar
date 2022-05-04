@@ -51,6 +51,7 @@ public abstract class SampleControllerBase : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 10;
         Application.runInBackground = true;
         var sampleArea = GameObject.Find("SampleArea");
         Area = sampleArea == null
