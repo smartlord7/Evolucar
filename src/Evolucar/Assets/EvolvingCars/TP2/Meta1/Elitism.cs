@@ -25,6 +25,13 @@ public class Elitism : ReinsertionBase
 
     #region Protected Methods
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="population"></param>
+    /// <param name="offspring"></param>
+    /// <param name="parents"></param>
+    /// <returns></returns>
     protected override IList<IChromosome> PerformSelectChromosomes(IPopulation population, IList<IChromosome> offspring, IList<IChromosome> parents)
         => population.CurrentGeneration.Chromosomes.OrderByDescending(p => p.Fitness).Take(eliteSize) as IList<IChromosome>;
 

@@ -24,6 +24,9 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         #region Constructors
 
+        /// <summary>
+        /// 
+        /// </summary>
         public CarFitness()
         {
             ChromosomesToBeginEvaluation = new BlockingCollection<CarChromosome>();
@@ -35,6 +38,11 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         #region Public Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chromosome"></param>
+        /// <returns></returns>
         public double Evaluate(IChromosome chromosome)
         {
             float fitness;

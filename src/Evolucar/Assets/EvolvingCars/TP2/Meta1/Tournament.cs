@@ -24,10 +24,17 @@ public class Tournament : SelectionBase
 
     #region Constructors
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Tournament() : this(DEFAULT_TOURNAMENT_SIZE)
     {
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="size"></param>
     public Tournament(int size) : base(DEFAULT_TOURNAMENT_SIZE)
     {
         Size = size;
@@ -38,6 +45,12 @@ public class Tournament : SelectionBase
 
     #region Protected Methods
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="number"></param>
+    /// <param name="generation"></param>
+    /// <returns></returns>
     protected override IList<IChromosome> PerformSelectChromosomes(int number, Generation generation)
     {
 

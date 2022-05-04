@@ -13,6 +13,9 @@ public class SinglePointMutation : IMutation
 
     #region Constructors
 
+    /// <summary>
+    /// 
+    /// </summary>
     public SinglePointMutation()
     {
         IsOrdered = true;
@@ -23,6 +26,11 @@ public class SinglePointMutation : IMutation
 
     #region Public Methods
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chromosome"></param>
+    /// <param name="probability"></param>
     public void Mutate(IChromosome chromosome, float probability)
     {
         int i;

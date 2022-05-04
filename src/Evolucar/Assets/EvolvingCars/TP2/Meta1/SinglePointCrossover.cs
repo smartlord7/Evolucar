@@ -25,11 +25,22 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 
         #region Constructors
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="crossoverProbability"></param>
         public SinglePointCrossover(float crossoverProbability) : this(2, 2, 2, true)
         {
             this.crossoverProbability = crossoverProbability;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentsNumber"></param>
+        /// <param name="offSpringNumber"></param>
+        /// <param name="minChromosomeLength"></param>
+        /// <param name="isOrdered"></param>
         public SinglePointCrossover(int parentsNumber, int offSpringNumber, int minChromosomeLength, bool isOrdered)
         {
             ParentsNumber = parentsNumber;
@@ -43,6 +54,11 @@ namespace GeneticSharp.Runner.UnityApp.Commons
 
         #region Public Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parents"></param>
+        /// <returns></returns>
         public IList<IChromosome> Cross(IList<IChromosome> parents)
         {
             int i;
