@@ -25,3 +25,9 @@ hs_err_pid*
 src/Evolucar/Library/
 
 src/Evolucar/Packages/
+
+src/Evolucar/.vs/Evolucar/v16/
+
+src/Evolucar/Temp/
+
+src/Evolucar/obj/
