@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "GeneticSharp/Car/Scripts/CarSampleConfig", order = 1)]
-public class CarSampleConfig : ScriptableObject {
+public class CarSampleConfig : ScriptableObject
+{
 
     [Header("Road")]
     [Range(2, 1000)]
@@ -47,15 +48,15 @@ public class CarSampleConfig : ScriptableObject {
 
     public float RoadLength
     {
-        get 
+        get
         {
-            return PointsCount * MaxPointsDistance;    
+            return PointsCount * MaxPointsDistance;
         }
     }
 
     public float RoadMiddle
     {
-        get 
+        get
         {
             return RoadLength / 2f;
         }

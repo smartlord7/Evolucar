@@ -9,12 +9,12 @@ namespace GeneticSharp.Runner.UnityApp.Car
         private PolygonCollider2D m_polygon;
         private LineRenderer m_lr;
 
-		private void Awake()
-		{
+        private void Awake()
+        {
             m_polygon = GetComponent<PolygonCollider2D>();
             m_lr = GetComponent<LineRenderer>();
             m_lr.positionCount = 0;
-		}
+        }
 
         private void Update()
         {
@@ -34,5 +34,5 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 m_lr.SetPosition(path.Length, transform.TransformPoint(path[0]));
             }
         }
-	}
+    }
 }

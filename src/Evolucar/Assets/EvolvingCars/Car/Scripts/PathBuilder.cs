@@ -2,7 +2,7 @@
 
 namespace GeneticSharp.Runner.UnityApp.Car
 {
-    public class PathBuilder 
+    public class PathBuilder
     {
         public float Height { get; set; } = 10f;
         private CarSampleConfig m_config;
@@ -24,7 +24,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 // Gets the polygon component.
                 m_polygon = path.GetComponent<PolygonCollider2D>();
                 m_polygon.pathCount = pointsCount;
-            
+
                 var xIndex = startPointIndex;
 
                 // Gets the obstacles container game object.
@@ -50,7 +50,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
                 m_polygon.points = points;
             }
-            else 
+            else
             {
                 RedeployObstacles();
             }
@@ -60,8 +60,8 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         private void DeployObstacle(int pointIndex, Vector2 point, int xIndex)
         {
-            if (m_config.ObstaclesEachPoints > 0 && 
-                point.x  >= m_config.ObstaclesStartPoint && 
+            if (m_config.ObstaclesEachPoints > 0 &&
+                point.x >= m_config.ObstaclesStartPoint &&
                 pointIndex % m_config.ObstaclesEachPoints == 0 &&
                 pointIndex < m_config.PointsCount - 1)
             {
@@ -86,7 +86,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         private float CalculateY(float x, int xIndex)
         {
-            if(m_config.MaxHeight == 0)
+            if (m_config.MaxHeight == 0)
             {
                 return 0;
             }

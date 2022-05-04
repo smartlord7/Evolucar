@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class CameraExpander : MonoBehaviour {
+public class CameraExpander : MonoBehaviour
+{
 
     private Camera m_camera;
     private Rect m_originalRect;
@@ -14,13 +13,13 @@ public class CameraExpander : MonoBehaviour {
 
     private bool m_expanded;
 
-	private void Awake()
-	{
+    private void Awake()
+    {
         m_camera = GetComponentInParent<Camera>();
         m_collider = GetComponent<BoxCollider2D>();
- 	}
+    }
 
-	void OnMouseDown()
+    void OnMouseDown()
     {
         if (m_expanded)
         {
@@ -28,7 +27,7 @@ public class CameraExpander : MonoBehaviour {
             m_camera.depth = m_originalDepth;
             m_collider.size = m_originalSize;
         }
-        else 
+        else
         {
             m_originalRect = m_camera.pixelRect;
             m_originalDepth = m_camera.depth;

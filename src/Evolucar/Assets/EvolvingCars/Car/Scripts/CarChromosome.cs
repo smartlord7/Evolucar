@@ -7,14 +7,14 @@ namespace GeneticSharp.Runner.UnityApp.Car
     [Serializable]
     public class CarChromosome : BitStringChromosome<CarVectorPhenotypeEntity>
     {
-        private CarSampleConfig m_config;
+        private readonly CarSampleConfig m_config;
         public CarChromosome(CarSampleConfig config)
         {
             m_config = config;
 
             var phenotypeEntities = new CarVectorPhenotypeEntity[config.VectorsCount];
 
-            for (int i = 0; i < phenotypeEntities.Length; i ++)
+            for (int i = 0; i < phenotypeEntities.Length; i++)
             {
                 phenotypeEntities[i] = new CarVectorPhenotypeEntity(config, i);
             }
@@ -33,15 +33,15 @@ namespace GeneticSharp.Runner.UnityApp.Car
         public float CarMass { get; set; }
         public bool IsRoadComplete { get; set; } = false;
 
-        public float MaxVelocity 
-        { 
-            get 
+        public float MaxVelocity
+        {
+            get
             {
-                return MaxDistanceTime > 0 ? MaxDistance / MaxDistanceTime : 0; 
-                            
-            } 
+                return MaxDistanceTime > 0 ? MaxDistance / MaxDistanceTime : 0;
+
+            }
         }
-      
+
         public override IChromosome CreateNew()
         {
             return new CarChromosome(m_config);

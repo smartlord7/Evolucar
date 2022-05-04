@@ -120,8 +120,8 @@ public abstract class SampleControllerBase : MonoBehaviour
     {
         if (m_generationText != null && GA.Population.CurrentGeneration != null)
         {
-            var averageFitness = GA.Population.CurrentGeneration.Chromosomes.Average(c => c.Fitness.HasValue ? c.Fitness.Value : 0);
-            var bestFitness = GA.Population.CurrentGeneration.Chromosomes.Max(c => c.Fitness.HasValue ? c.Fitness.Value : 0);
+            var averageFitness = GA.Population.CurrentGeneration.Chromosomes.Average(c => c.Fitness ?? 0);
+            var bestFitness = GA.Population.CurrentGeneration.Chromosomes.Max(c => c.Fitness ?? 0);
 
             UpdateTexts(
                 m_generationText,

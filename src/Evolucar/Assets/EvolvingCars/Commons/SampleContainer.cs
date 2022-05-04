@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SampleContainer : MonoBehaviour {
+public class SampleContainer : MonoBehaviour
+{
 
-	void Start () {
+    void Start()
+    {
         DontDestroyOnLoad(this);
-	}
-	
+    }
+
 }

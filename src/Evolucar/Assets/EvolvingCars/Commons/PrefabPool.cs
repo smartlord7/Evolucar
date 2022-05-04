@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using UnityEngine;
 
-public class PrefabPool 
+public class PrefabPool
 {
     private BlockingCollection<GameObject> m_available = new BlockingCollection<GameObject>();
     private BlockingCollection<GameObject> m_unavailable = new BlockingCollection<GameObject>();
@@ -18,7 +18,7 @@ public class PrefabPool
     {
         GameObject go;
 
-        if(m_available.TryTake(out go))
+        if (m_available.TryTake(out go))
         {
             go.transform.position = position;
             go.transform.rotation = Quaternion.identity;
@@ -45,7 +45,7 @@ public class PrefabPool
 
     public void ReleaseAll()
     {
-        while(m_unavailable.Count > 0)
+        while (m_unavailable.Count > 0)
         {
             m_available.Add(m_unavailable.Take());
         }

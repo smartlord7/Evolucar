@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using GeneticSharp.Domain.Chromosomes;
 using GeneticSharp.Runner.UnityApp.Car;
 using UnityEditor;
@@ -15,10 +13,6 @@ public class EvaluateBest : MonoBehaviour
     private Text m_fitnessText;
     private Text m_previousGenerationText;
     private Text m_previousFitnessText;
-    private double m_previousBestFitness;
-    private double m_previousAverageFitness;
-    private string folderName;
-    private string newFileName = "EvolutionLog.csv";
     private Vector3 m_lastPosition;
     private PrefabPool m_evaluationPool;
     public UnityEngine.Object EvaluationPrefab;
@@ -26,7 +20,6 @@ public class EvaluateBest : MonoBehaviour
     protected CarChromosome bestCarChromosome;
     protected bool IsBestRunning = false;
     public string FilePath = "";
-
 
     protected bool ChromosomesCleanupEnabled { get; set; }
     protected bool ShowPreviousInfoEnabled { get; set; } = true;
@@ -69,26 +62,20 @@ public class EvaluateBest : MonoBehaviour
             m_previousFitnessText.text = string.Empty;
         }
 
-        
-
         if (m_generationText != null)
         {
             m_generationText.text = string.Empty;
             m_fitnessText.text = string.Empty;
         }
 
-        //int[] genotype = new int[] { 1,1,1,1,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,0,0,1,0,1,1,1,1,0,0,1,0,1,0,0,0,0,1,0,0,1,0,0,1,1,1,0,1,1,0,0,1,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,1,0,1,0,0,0,1,0,1,1,0,1,1,0,1,0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1,1,1,1,0,1,0,0,0,1,1,0,1,0,0,0,1,0,1,1,1,1,0,0,0,1,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,1,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,1,1 };
-        //int[] genotype = new int[] { 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0 };
-        int[] genotype = loadGenotype();
+        int[] genotype = LoadGenotype();
         bestCarChromosome = new CarChromosome(Config);
-        for(int i = 0; i < genotype.Length; i++)
+        for (int i = 0; i < genotype.Length; i++)
         {
             bestCarChromosome.ReplaceGene(i, new Gene(genotype[i]));
         }
-        
-        StartSample();
 
-      
+        StartSample();
     }
 
     protected void StartSample()
@@ -98,13 +85,13 @@ public class EvaluateBest : MonoBehaviour
         m_evaluationPool = new PrefabPool(EvaluationPrefab);
     }
 
-    protected int[] loadGenotype()
+    protected int[] LoadGenotype()
     {
         string lines = System.IO.File.ReadAllLines(FilePath)[0];
         string[] genotypeValues = lines.Split(',');
         int[] genotype = new int[genotypeValues.Length];
-        
-        for(int i = 0; i < genotypeValues.Length; i++)
+
+        for (int i = 0; i < genotypeValues.Length; i++)
         {
             genotype[i] = (int)Char.GetNumericValue(genotypeValues[i][0]);
         }
@@ -114,15 +101,11 @@ public class EvaluateBest : MonoBehaviour
 
     protected void UpdateSample()
     {
-
-           
         var c = bestCarChromosome;
 
 
         if (!IsBestRunning)
         {
-
-
             var evaluation = m_evaluationPool.Get(m_lastPosition);
             evaluation.name = c.ID;
             c.Evaluated = false;
@@ -141,26 +124,16 @@ public class EvaluateBest : MonoBehaviour
                 m_camera.pixelRect = new Rect(0, 0, Screen.width, Screen.height);
                 m_camera.depth = float.MaxValue;
             }
-            catch (Exception ex)
+            catch
             {
                 Debug.Log("No Camera Available Yet!");
             }
-           
-
-            //BoxCollider2D m_collider = GetComponent<BoxCollider2D>();
-
-           
-            //StartCoroutine(car.CheckTimeout());
-            //m_collider.size = new Vector2(m_camera.pixelWidth, m_camera.pixelHeight);
         }
     }
 
 
     void Update()
     {
-       
-
-
         UpdateSample();
     }
 
@@ -175,7 +148,6 @@ public class EvaluateBest : MonoBehaviour
             m_previousFitnessText.text = String.Empty;
 
         }
-
     }
     protected void SetFitnessText(string text)
     {
@@ -183,11 +155,5 @@ public class EvaluateBest : MonoBehaviour
         {
             m_fitnessText.text = text;
         }
-    }
-
-    private void UpdateTexts(Text generationText, Text fitnessText, int generationsNumber, double bestFitness, double averageFitness)
-    {
-        generationText.text = $"Generation: {generationsNumber}";
-        fitnessText.text = $"Best Fitness: {bestFitness:N2}\nPopAverage: {averageFitness:N2}";
     }
 }

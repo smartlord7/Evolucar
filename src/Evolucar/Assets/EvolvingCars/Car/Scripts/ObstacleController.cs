@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ObstacleController : MonoBehaviour {
+public class ObstacleController : MonoBehaviour
+{
 
     private Vector2 m_originalPosition;
 
@@ -11,10 +9,10 @@ public class ObstacleController : MonoBehaviour {
     {
         transform.position = point;
         transform.SetParent(road, false);
-      
+
         m_originalPosition = transform.position;
     }
-   
+
     public void Redeploy()
     {
         transform.position = m_originalPosition;

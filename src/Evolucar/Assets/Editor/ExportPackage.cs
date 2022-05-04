@@ -1,11 +1,11 @@
-using UnityEngine;
-using UnityEditor;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 public class ExportPackage
 {
     [MenuItem("Export/MyExport")]
-    static void export()
+    static void Export()
     {
         var assetsPaths = AssetDatabase.GetAllAssetPaths().ToList();
         assetsPaths.Remove("Assets/EvolvingCars/TP2/Meta1/Solutions/ElitismSolution.cs");

@@ -1,10 +1,10 @@
-using GeneticSharp.Domain.Chromosomes;
 using System;
-using System.Linq;
-using GeneticSharp.Infrastructure.Framework.Commons;
-using GeneticSharp.Domain.Randomizations;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using GeneticSharp.Domain.Chromosomes;
+using GeneticSharp.Domain.Randomizations;
+using GeneticSharp.Infrastructure.Framework.Commons;
 
 namespace GeneticSharp.Runner.UnityApp.Commons
 {
@@ -121,14 +121,14 @@ namespace GeneticSharp.Runner.UnityApp.Commons
         public void Load(IEnumerable<int> entityGenes)
         {
             var skip = 0;
-           
-            foreach(var p in Phenotypes)
+
+            foreach (var p in Phenotypes)
             {
                 p.Value = GetValue(entityGenes, skip, p);
                 skip += p.Length;
             }
         }
-      
+
         private double GetValue(IEnumerable<int> genes, int skip, IPhenotype phenotype)
         {
             var representation = string.Join(String.Empty, genes.Skip(skip).Take(phenotype.Length));
@@ -158,17 +158,17 @@ namespace GeneticSharp.Runner.UnityApp.Commons
         public double MinValue { get; set; } = 0;
         public double MaxValue { get; set; } = 100;
         public virtual double Value { get; set; }
-    
+
         public virtual double RandomValue()
         {
             return RandomizationProvider.Current.GetDouble(MinValue, MaxValue + 1);
         }
 
 
-        
+
     }
 
-    
+
 
 
 }

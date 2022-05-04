@@ -9,7 +9,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
     {
         #region Const
 
-        const int TIME_FITNESS_EVUALTION= 1000;
+        const int TIME_FITNESS_EVUALTION = 1000;
 
         #endregion Const
 
@@ -79,7 +79,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
             } while (!c.Evaluated);
 
-                ChromosomesToEndEvaluation.Add(c);
+            ChromosomesToEndEvaluation.Add(c);
 
             do
             {

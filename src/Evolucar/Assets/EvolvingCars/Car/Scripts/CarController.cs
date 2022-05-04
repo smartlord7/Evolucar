@@ -6,7 +6,6 @@ namespace GeneticSharp.Runner.UnityApp.Car
 {
     public class CarController : MonoBehaviour
     {
-        private static Rect? s_lastCameraRect;
         private PolygonCollider2D m_polygon;
         private Rigidbody2D m_rb;
         private TextMesh m_fitnessText;
@@ -14,10 +13,9 @@ namespace GeneticSharp.Runner.UnityApp.Car
         private GameObject m_wheels;
         private CarSampleConfig m_config;
         private float m_startTime;
-        private float m_currentVelocity;
         private float m_lastDistance;
         private float m_lastTime;
-    
+
 
         public Object WheelPrefab;
         public float VectorMagnitudeMass = 2f;
@@ -41,29 +39,25 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 m_cam = GameObject.Find("SimulationGrid")
                       .GetComponent<SimulationGrid>()
                       .AddChromosome(gameObject);
-
             }
-            catch (System.NullReferenceException ex)
+            catch
             {
-                
                 m_cam = GameObject.Find("SimulationGrid")
                       .GetComponent<EvaluationGrid>()
                       .AddChromosome(gameObject);
-                
             }
-            
         }
 
-      	public IEnumerator CheckTimeout()
+        public IEnumerator CheckTimeout()
         {
             var intervalLastDistance = Distance;
             var intervalLastTime = Time.time;
             yield return new WaitForSeconds(m_config.WarmupTime);
-       
+
             do
             {
                 // Check if car as the min velocity expected in the inteval.
-                if(DistanceTime > 0 && CalculateVelocity(ref intervalLastDistance, ref intervalLastTime) < m_config.MinVelocity)
+                if (DistanceTime > 0 && CalculateVelocity(ref intervalLastDistance, ref intervalLastTime) < m_config.MinVelocity)
                 {
                     StopEvaluation();
                     break;
@@ -78,13 +72,12 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
             lastDistance = Distance;
             lastTime = Time.time;
-            m_currentVelocity = result;
             return result;
         }
 
         private void StopEvaluation()
         {
-            StopCoroutine("CheckTimeout");
+            StopCoroutine(nameof(CheckTimeout));
             m_rb.Sleep();
             m_rb.isKinematic = true;
 
@@ -108,11 +101,11 @@ namespace GeneticSharp.Runner.UnityApp.Car
             StopEvaluation();
         }
 
-		private void OnCollisionEnter2D(Collision2D collision)
-		{
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
             var other = collision.gameObject;
 
-			if (other.tag == "DeadZone")
+            if (other.CompareTag("DeadZone"))
             {
                 // When reach the road dead end, use the dead end position as max distance.
                 if (transform.position.x > m_config.RoadMiddle && other.name.Equals("dead-end"))
@@ -124,10 +117,10 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
                 StopEvaluation();
             }
-		}
+        }
 
-     	private void Update()
-		{
+        private void Update()
+        {
             if (!Chromosome.Evaluated)
             {
                 CheckMaxDistance();
@@ -160,17 +153,17 @@ namespace GeneticSharp.Runner.UnityApp.Car
             }
         }
 
-		public void SetChromosome(CarChromosome chromosome, CarSampleConfig config)
+        public void SetChromosome(CarChromosome chromosome, CarSampleConfig config)
         {
             Chromosome = chromosome;
             Chromosome.MaxDistance = 0;
             chromosome.MaxDistanceTime = 0;
-            
+
             Distance = 0;
             DistanceTime = 0;
             m_startTime = Time.time;
             transform.rotation = Quaternion.identity;
-           
+
             m_config = config;
             m_rb.isKinematic = false;
             m_rb.velocity = Vector2.zero;
@@ -184,7 +177,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
             {
                 var p = phenotypes[i];
                 PrepareWheel(i, m_polygon.points[p.WheelIndex], p.WheelRadius);
-                if(p.WheelRadius > 0)
+                if (p.WheelRadius > 0)
                 {
                     countWheels++;
                 }
@@ -193,7 +186,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
             chromosome.NumberOfWheels = countWheels;
             // The car mass should be greater than wheels sum mass, because the WheelJoint2d get crazy otherwise.
             // If we comment the line bellow and enable the car mass should be greater than wheels sum mass, because the WheelJoint2d get crazy otherwise.
-            m_rb.mass = 1 +  m_polygon.points.Sum(p => p.magnitude) * VectorMagnitudeMass + wheelsMass;
+            m_rb.mass = 1 + m_polygon.points.Sum(p => p.magnitude) * VectorMagnitudeMass + wheelsMass;
 
             chromosome.CarMass = m_rb.mass;
 
@@ -202,7 +195,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 m_cam.StartFollowing(gameObject);
             }
 
-            StartCoroutine("CheckTimeout");
+            StartCoroutine(nameof(CheckTimeout));
         }
 
         private GameObject PrepareWheel(int index, Vector2 anchorPosition, float radius)
@@ -219,7 +212,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
             }
             else
             {
-                wheel = wheelTransform.gameObject;    
+                wheel = wheelTransform.gameObject;
             }
 
             var joint = wheel.GetComponent<HingeJoint2D>();
@@ -237,5 +230,5 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
             return wheel;
         }
-	}
+    }
 }

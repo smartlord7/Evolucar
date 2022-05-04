@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace GeneticSharp.Runner.UnityApp.Car
@@ -11,17 +10,17 @@ namespace GeneticSharp.Runner.UnityApp.Car
         public Object CameraPrefab;
         public CarSampleController Sample;
 
-		private void Awake()
-		{
+        private void Awake()
+        {
             m_availableCameras = new ConcurrentQueue<FollowChromosomeCam>();
 
             for (int x = 0; x < Sample.SimulationsGrid.x; x++)
-            { 
+            {
                 for (int y = 0; y < Sample.SimulationsGrid.y; y++)
                 {
                     var cam = ((GameObject)Instantiate(CameraPrefab, Vector3.zero, Quaternion.identity)).GetComponent<Camera>();
                     cam.transform.parent = transform.parent;
-                
+
                     var width = cam.pixelRect.width / Sample.SimulationsGrid.x;
                     var height = cam.pixelRect.height / Sample.SimulationsGrid.y;
 
@@ -29,9 +28,9 @@ namespace GeneticSharp.Runner.UnityApp.Car
                     m_availableCameras.Enqueue(cam.GetComponent<FollowChromosomeCam>());
                 }
             }
-		}
+        }
 
-		public FollowChromosomeCam AddChromosome(GameObject chromosome)
+        public FollowChromosomeCam AddChromosome(GameObject chromosome)
         {
             FollowChromosomeCam cam;
 
@@ -41,7 +40,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
             }
             else
             {
-                Debug.LogError("Cannot dequeue camera");    
+                Debug.LogError("Cannot dequeue camera");
             }
 
             return cam;

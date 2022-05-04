@@ -1,12 +1,6 @@
-﻿using System.Collections;
-using GeneticSharp.Domain;
-using GeneticSharp.Domain.Crossovers;
-using GeneticSharp.Domain.Mutations;
+﻿using GeneticSharp.Domain;
 using GeneticSharp.Domain.Populations;
-using GeneticSharp.Domain.Selections;
-using GeneticSharp.Domain.Terminations;
 using GeneticSharp.Infrastructure.Framework.Threading;
-using GeneticSharp.Runner.UnityApp.Commons;
 using UnityEngine;
 
 namespace GeneticSharp.Runner.UnityApp.Car
@@ -18,31 +12,29 @@ namespace GeneticSharp.Runner.UnityApp.Car
         private int NumberOfSimultaneousEvaluations = 50;
         public Vector2Int SimulationsGrid = new Vector2Int(2, 2);
         public Vector3 EvaluationDistance = new Vector3(0, 0, 2);
-     
+
         public Object EvaluationPrefab;
         public CarSampleConfig Config;
-     
+
         private CarFitness m_fitness;
         private Vector3 m_lastPosition;
         private PrefabPool m_evaluationPool;
-        private bool IsBestRunning = false;
-        private int repetition = 0;
 
         public static void SetConfig(CarSampleConfig config)
         {
             s_config = config;
         }
 
-		private void Awake()
-		{
-			if(s_config != null)
+        private void Awake()
+        {
+            if (s_config != null)
             {
                 Config = s_config;
-         
-            }
-		}
 
-		protected override GeneticAlgorithm CreateGA()
+            }
+        }
+
+        protected override GeneticAlgorithm CreateGA()
         {
             NumberOfSimultaneousEvaluations = SimulationsGrid.x * SimulationsGrid.y;
             m_fitness = new CarFitness();
@@ -53,9 +45,9 @@ namespace GeneticSharp.Runner.UnityApp.Car
             var mutationOperator = GeneticAlgorithmConfigurations.mutationOperator;
             var parentSelection = GeneticAlgorithmConfigurations.parentSelection;
             var terminationCondition = GeneticAlgorithmConfigurations.terminationCondition;
-            var survivorSelection =  GeneticAlgorithmConfigurations.survivorSelection;
+            var survivorSelection = GeneticAlgorithmConfigurations.survivorSelection;
 
-            
+
 
 
             Population population = new Population(NumberOfSimultaneousEvaluations, NumberOfSimultaneousEvaluations, chromosome)
@@ -71,7 +63,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
             ga.Termination = terminationCondition;
             ga.CrossoverProbability = 1.0f; // DO NOT CHANGE!!!
             ga.MutationProbability = GeneticAlgorithmConfigurations.mutationProbability;
-            
+
             ga.TaskExecutor = new ParallelTaskExecutor
             {
                 MinThreads = population.MinSize,
@@ -83,7 +75,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 m_evaluationPool.ReleaseAll();
             };
 
-            
+
 
             return ga;
         }
@@ -102,8 +94,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 // end evaluation.
                 while (m_fitness.ChromosomesToEndEvaluation.Count > 0)
                 {
-                    CarChromosome c;
-                    m_fitness.ChromosomesToEndEvaluation.TryTake(out c);
+                    m_fitness.ChromosomesToEndEvaluation.TryTake(out CarChromosome c);
                     c.Evaluated = true;
                 }
 
@@ -111,8 +102,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 // in evaluation.
                 while (m_fitness.ChromosomesToBeginEvaluation.Count > 0)
                 {
-                    CarChromosome c;
-                    m_fitness.ChromosomesToBeginEvaluation.TryTake(out c);
+                    m_fitness.ChromosomesToBeginEvaluation.TryTake(out CarChromosome c);
                     c.Evaluated = false;
                     c.MaxDistance = 0;
 
@@ -129,45 +119,6 @@ namespace GeneticSharp.Runner.UnityApp.Car
                     m_lastPosition += EvaluationDistance;
                 }
             }
-            //else
-            //{
-            //    if (GA.GenerationsNumber > 0)
-            //    {
-            //        var c = GA.BestChromosome as CarChromosome;
-            //        if (!IsBestRunning)
-            //        {
-
-
-            //            var evaluation = m_evaluationPool.Get(m_lastPosition);
-            //            evaluation.name = c.ID;
-            //            c.Evaluated = false;
-
-            //            var road = evaluation.GetComponentInChildren<RoadController>();
-            //            road.Build(Config);
-
-            //            var car = evaluation.GetComponentInChildren<CarController>();
-            //            car.transform.position = m_lastPosition;
-            //            car.SetChromosome(c, Config);
-
-            //            IsBestRunning = true;
-
-            //            Camera m_camera = car.m_cam.Camera;
-
-            //            //BoxCollider2D m_collider = GetComponent<BoxCollider2D>();
-
-            //            m_camera.pixelRect = new Rect(0, 0, Screen.width, Screen.height);
-            //            m_camera.depth = float.MaxValue;
-            //            StartCoroutine(car.CheckTimeout());
-            //            //m_collider.size = new Vector2(m_camera.pixelWidth, m_camera.pixelHeight);
-            //        }
-            //        else
-            //        {
-            //            IsBestRunning = !c.Evaluated;
-            //        }
-
-            //    }                    
-                    
-            //}
         }
     }
 }

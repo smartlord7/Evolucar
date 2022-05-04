@@ -1,6 +1,5 @@
-using GeneticSharp.Domain.Terminations;
 using GeneticSharp.Domain;
-using UnityEngine;
+using GeneticSharp.Domain.Terminations;
 
 namespace GeneticSharp.Runner.UnityApp.Car
 {
@@ -8,15 +7,15 @@ namespace GeneticSharp.Runner.UnityApp.Car
     {
         protected int maxGenerations = 0;
 
-        public GenerationsTermination(int maxGenerations) 
+        public GenerationsTermination(int maxGenerations)
         {
             this.maxGenerations = maxGenerations;
         }
 
 
-    
-		protected override bool PerformHasReached(IGeneticAlgorithm geneticAlgorithm)
-		{
+
+        protected override bool PerformHasReached(IGeneticAlgorithm geneticAlgorithm)
+        {
             var ga = geneticAlgorithm as GeneticAlgorithm;
 
             foreach (var c in ga.Population.CurrentGeneration.Chromosomes)
@@ -25,6 +24,6 @@ namespace GeneticSharp.Runner.UnityApp.Car
             }
 
             return ga.Population.CurrentGeneration.Number >= this.maxGenerations;
-		}
-	}
+        }
+    }
 }

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FollowChromosomeCam : MonoBehaviour {
+public class FollowChromosomeCam : MonoBehaviour
+{
 
     private Color m_originalBackgroundColor;
     private bool m_isFollowing;
@@ -14,26 +13,26 @@ public class FollowChromosomeCam : MonoBehaviour {
 
     public Camera Camera { get; private set; }
 
-	private void Awake()
-	{
+    private void Awake()
+    {
         Camera = GetComponent<Camera>();
         m_originalBackgroundColor = Camera.backgroundColor;
-	}
+    }
 
-	void LateUpdate() 
+    void LateUpdate()
     {
-        if(m_isFollowing)
-            transform.position = Vector3.Lerp(transform.position, m_target.transform.position + Offset, Time.deltaTime * Speed*10);
+        if (m_isFollowing)
+            transform.position = Vector3.Lerp(transform.position, m_target.transform.position + Offset, Time.deltaTime * Speed * 10);
     }
 
     public void StartFollowing(GameObject target)
     {
         if (target == null)
             Debug.LogError("Target cannot be null");
-        
+
         if (!m_isFollowing)
         {
-            transform.position = target.transform.position; 
+            transform.position = target.transform.position;
             m_target = target;
             Camera.backgroundColor = m_originalBackgroundColor;
             m_isFollowing = true;
