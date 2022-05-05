@@ -7,10 +7,10 @@ namespace GeneticSharp.Runner.UnityApp.Car
     [Serializable]
     public class CarChromosome : BitStringChromosome<CarVectorPhenotypeEntity>
     {
-        private readonly CarSampleConfig m_config;
+        public readonly CarSampleConfig config;
         public CarChromosome(CarSampleConfig config)
         {
-            m_config = config;
+            this.config = config;
 
             var phenotypeEntities = new CarVectorPhenotypeEntity[config.VectorsCount];
 
@@ -44,7 +44,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         public override IChromosome CreateNew()
         {
-            return new CarChromosome(m_config);
+            return new CarChromosome(config);
         }
     }
 }

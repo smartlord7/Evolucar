@@ -5,11 +5,11 @@ namespace GeneticSharp.Runner.UnityApp.Car
 {
     public class CarVectorPhenotypeEntity : PhenotypeEntityBase
     {
-        public const int VectorSizeBits = 7;
-        public const int VectorAngleBits = 9;
-        public const int WheelIndexBits = 7;
-        public const int WheelRadiusBits = 4;
-        public const int PhenotypeSize = VectorSizeBits + VectorAngleBits + WheelIndexBits + WheelRadiusBits;
+        public static int VectorSizeBits = 7;
+        public static int VectorAngleBits = 9;
+        public static int WheelIndexBits = 7;
+        public static int WheelRadiusBits = 4;
+        public static int PhenotypeSize = VectorSizeBits + VectorAngleBits + WheelIndexBits + WheelRadiusBits;
 
 
         public CarVectorPhenotypeEntity(CarSampleConfig config, int entityIndex)

@@ -1,3 +1,5 @@
+using System;
+using Assets.EvolvingCars.TP2;
 using GeneticSharp.Runner.UnityApp.Car;
 using GeneticSharp.Runner.UnityApp.Commons;
 
@@ -9,6 +11,7 @@ public static class GeneticAlgorithmConfigurations
     public static int tournamentSize = 5;
     public static int maximumNumberOfGenerations = 30;
     public static int eliteSize = 2;
+    public static Func<CarChromosome, float> fitnessFunction = FitnessFunctions.FITNESS_FUNCTION_WHEELS_INVERSE;
     public static SinglePointCrossover crossoverOperator = new SinglePointCrossover(crossoverProbability);
     public static SinglePointMutation mutationOperator = new SinglePointMutation();
     public static Tournament parentSelection = new Tournament(tournamentSize);

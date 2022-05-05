@@ -65,16 +65,8 @@ namespace GeneticSharp.Runner.UnityApp.Car
                  * IsRoadComplete: This variable has the value 1 if the car reaches the end of the road, 0 otherwise.
                  * 
                 */
-                var maxDistance = c.MaxDistance;
-                var maxDistanceTime = c.MaxDistanceTime;
-                var maxVelocity = c.MaxVelocity;
-                var numberOfWheels = c.NumberOfWheels;
-                var carMass = c.CarMass;
-                var isRoadComplete = c.IsRoadComplete ? 1 : 0;
 
-
-                fitness = maxDistance;
-
+                fitness = GeneticAlgorithmConfigurations.fitnessFunction(c);
                 c.Fitness = fitness;
 
             } while (!c.Evaluated);
