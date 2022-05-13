@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using GeneticSharp.Domain;
-using GeneticSharp.Domain.Chromosomes;
 using GeneticSharp.Runner.UnityApp.Car;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +28,6 @@ public abstract class SampleControllerBase : MonoBehaviour
     private double m_previousBestFitness;
     private double m_previousAverageFitness;
     private string folderName;
-    private int prevGen;
 
     #endregion Private Properties
 
@@ -53,9 +51,6 @@ public abstract class SampleControllerBase : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 10;
-        Time.fixedDeltaTime *= Time.timeScale;
-        prevGen = -1;
         Application.runInBackground = true;
         var sampleArea = GameObject.Find("SampleArea");
         Area = sampleArea == null
@@ -146,33 +141,9 @@ public abstract class SampleControllerBase : MonoBehaviour
                     m_previousAverageFitness);
             }
 
-            if (currentGeneration.Number != prevGen && prevGen != -1)
-            {
-                SaveGenFirstFrame();
-                prevGen = currentGeneration.Number;
-            }
-            else if (prevGen == -1)
-            {
-                prevGen = currentGeneration.Number;
-            }
         }
 
         UpdateSample();
-    }
-
-    private void SaveGenFirstFrame()
-    {
-        if (!Directory.Exists(this.folderName))
-        {
-            Directory.CreateDirectory(this.folderName); 
-        }
-
-        var screenshotName =
-                            "Screenshot_" +
-                            DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss") +
-                            ".png";
-        ScreenCapture.CaptureScreenshot(Path.Combine(this.folderName, screenshotName), 2);
-        Debug.Log(this.folderName + screenshotName);
     }
 
     private void OnDestroy()
