@@ -199,7 +199,7 @@ public abstract class SampleControllerBase : MonoBehaviour
     private void CreateStatsFolder()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        string configName = "-crossProb-" + GeneticAlgorithmConfigurations.crossoverProbability.ToString() + "-elite-" + GeneticAlgorithmConfigurations.eliteSize.ToString() + "-mutProb-" + GeneticAlgorithmConfigurations.mutationProbability.ToString() + "-tournamenteSize-" + GeneticAlgorithmConfigurations.tournamentSize.ToString();
+        string configName = "-crossProb-" + GeneticAlgorithmConfigurations.crossoverProbability.ToString() + "-elite-" + GeneticAlgorithmConfigurations.eliteSize.ToString() + "-mutProb-" + GeneticAlgorithmConfigurations.mutationProbability.ToString() + "-tournamenteSize-" + GeneticAlgorithmConfigurations.tournamentSize.ToString() + "-fitnessFunction-" + GeneticAlgorithmConfigurations.fitnessFunction.Method.Name;
         this.folderName = "Results/" + sceneName + "-" + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss") + configName;
         Directory.CreateDirectory(this.folderName);
     }
