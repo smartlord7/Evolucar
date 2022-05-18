@@ -48,5 +48,54 @@ namespace Assets.EvolvingCars.TP2
 
             return fitness;
         }
+
+        public static float FITNESS_FUNCTION_5(CarChromosome c)
+        {
+            var f = 1f;
+
+            if (c.IsRoadComplete)
+            {
+                f = 4;
+            }
+
+            var fitness = f * c.MaxDistance + 12 * c.MaxVelocity - 1.5f * c.CarMass - 7 * c.MaxDistanceTime;
+
+            if (c.NumberOfWheels <= 1)
+            {
+                c.NumberOfWheels -= 400;
+            }
+            else if (c.NumberOfWheels == 2)
+            {
+                c.NumberOfWheels -= 25;
+            }
+
+            return fitness;
+        }
+
+        public static float FITNESS_FUNCTION_6(CarChromosome c)
+        {
+            if (c.MaxDistance > 360 && !c.IsRoadComplete)
+            {
+                return 0;
+            }
+
+            var f = 1f;
+
+            f *= c.MaxDistance % 360;
+
+            if (f >= 230)
+            {
+                f += (f - 230) * 30;
+            }
+
+            var f2 = 0f;
+
+            if (c.IsRoadComplete)
+            {
+                f2 = 1;
+            }
+
+            return f + f2 * 1000;
+        }
     }
 }

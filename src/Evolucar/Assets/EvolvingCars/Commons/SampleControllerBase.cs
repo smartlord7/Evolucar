@@ -117,7 +117,7 @@ public abstract class SampleControllerBase : MonoBehaviour
 
     private void Update()
     {
-        if (m_generationText != null && GA.Population.CurrentGeneration != null)
+        if (m_generationText != null && GA?.Population.CurrentGeneration != null)
         {
             var currentGeneration = GA.Population.CurrentGeneration;
             var chromosomes = GA.Population.CurrentGeneration.Chromosomes;
