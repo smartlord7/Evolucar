@@ -105,22 +105,27 @@ namespace Assets.EvolvingCars.TP2
         {
             var f = 0.0f;
 
+            if (c.MaxDistanceCurrent > c.config.RoadLength)
+            {
+                return 0.0f;
+            }
+
             if (c.IsRoadComplete)
             {
-                f += 0.4f;
+                f += 0.7f;
             }
             else
             {
-                f += 0.4f * (c.MaxDistanceCurrent / c.config.RoadLength);
+                f += 0.7f * (c.MaxDistanceCurrent / c.config.RoadLength);
             }
 
-            var massFactor = 0.3f * (1.0f - c.CarMass / GetMaxMass(c));
+            var massFactor = 0.2f * (1.0f - c.CarMass / GetMaxMass(c));
             f += massFactor;
 
-            var velocityFactor = 0.2f * (c.MaxVelocityPrevious == 0 ? 1 : Mathf.Clamp(c.MaxVelocityCurrent / c.MaxVelocityPrevious, 0.0f, 1.0f));
+            var velocityFactor = 0.075f * (c.MaxVelocityPrevious == 0 ? 1 : Mathf.Clamp(c.MaxVelocityCurrent / c.MaxVelocityPrevious, 0.0f, 1.0f));
             f += velocityFactor;
 
-            var nWheelsFactor =  0.1f * MathUtil.Gaussian(c.NumberOfWheels, 3.0f, 2.0f);
+            var nWheelsFactor =  0.025f * MathUtil.Gaussian(c.NumberOfWheels, 3.0f, 2.0f);
             f += nWheelsFactor;
 
             return f * 100;
