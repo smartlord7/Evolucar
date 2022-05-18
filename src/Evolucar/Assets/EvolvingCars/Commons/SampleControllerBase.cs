@@ -174,7 +174,7 @@ public abstract class SampleControllerBase : MonoBehaviour
 
         var best = GA.BestChromosome as CarChromosome;
         string pathToFile = $"{this.folderName}/{NAME_FILE_EVOLUTION}";
-        string generationInfo = $"{GA.GenerationsNumber}{DELIMITER_OUTPUT}{m_previousBestFitness}{DELIMITER_OUTPUT}{m_previousAverageFitness}{DELIMITER_OUTPUT}{best.MaxDistance}{DELIMITER_OUTPUT}{best.MaxDistanceTime}{DELIMITER_OUTPUT}{best.NumberOfWheels}{DELIMITER_OUTPUT}{best.CarMass}{DELIMITER_OUTPUT}{best.IsRoadComplete}" + Environment.NewLine;
+        string generationInfo = $"{GA.GenerationsNumber}{DELIMITER_OUTPUT}{m_previousBestFitness}{DELIMITER_OUTPUT}{m_previousAverageFitness}{DELIMITER_OUTPUT}{best.MaxDistanceCurrent}{DELIMITER_OUTPUT}{best.MaxDistanceTimeCurrent}{DELIMITER_OUTPUT}{best.NumberOfWheels}{DELIMITER_OUTPUT}{best.CarMass}{DELIMITER_OUTPUT}{best.IsRoadComplete}" + Environment.NewLine;
 
 
         if (!File.Exists(pathToFile))

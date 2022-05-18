@@ -111,7 +111,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 if (transform.position.x > m_config.RoadMiddle && other.name.Equals("dead-end"))
                 {
                     Chromosome.IsRoadComplete = true;
-                    Chromosome.MaxDistance = other.transform.position.x;
+                    Chromosome.MaxDistanceCurrent = other.transform.position.x;
                     UpdateFitnessText();
                 }
 
@@ -130,7 +130,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         private void UpdateFitnessText()
         {
-            m_fitnessText.text = FormatFitnessText(Chromosome.MaxDistance, Chromosome.MaxDistanceTime);
+            m_fitnessText.text = FormatFitnessText(Chromosome.MaxDistanceCurrent, Chromosome.MaxDistanceTimeCurrent);
             m_fitnessText.transform.rotation = Quaternion.identity;
         }
 
@@ -143,21 +143,24 @@ namespace GeneticSharp.Runner.UnityApp.Car
 
         private void CheckMaxDistance()
         {
+            Chromosome.MaxDistancePrevious = Chromosome.MaxDistanceCurrent;
+            Chromosome.MaxDistanceTimePrevious = Chromosome.MaxDistanceTimePrevious;
+
             Distance = transform.position.x;
             DistanceTime = Time.time - m_startTime;
 
-            if (Distance > Chromosome.MaxDistance)
+            if (Distance > Chromosome.MaxDistanceCurrent)
             {
-                Chromosome.MaxDistance = Distance;
-                Chromosome.MaxDistanceTime = DistanceTime;
+                Chromosome.MaxDistanceCurrent = Distance;
+                Chromosome.MaxDistanceTimeCurrent = DistanceTime;
             }
         }
 
         public void SetChromosome(CarChromosome chromosome, CarSampleConfig config)
         {
             Chromosome = chromosome;
-            Chromosome.MaxDistance = 0;
-            chromosome.MaxDistanceTime = 0;
+            Chromosome.MaxDistanceCurrent = 0;
+            chromosome.MaxDistanceTimeCurrent = 0;
 
             Distance = 0;
             DistanceTime = 0;

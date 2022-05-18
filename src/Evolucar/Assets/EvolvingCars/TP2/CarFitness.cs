@@ -57,9 +57,9 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 /* 
                  * 
                  * Access to the following information regarding how the car performed in the scenario:
-                 * MaxDistance: Maximum distance reached by the car;
-                 * MaxDistanceTime: Time taken to reach the MaxDistance;
-                 * MaxVelocity: Maximum Velocity reached by the car;
+                 * MaxDistanceCurrent: Maximum distance reached by the car;
+                 * MaxDistanceTimeCurrent: Time taken to reach the MaxDistanceCurrent;
+                 * MaxVelocityCurrent: Maximum Velocity reached by the car;
                  * NumberOfWheels: Number of wheels that the cars has;
                  * CarMass: Weight of the car;
                  * IsRoadComplete: This variable has the value 1 if the car reaches the end of the road, 0 otherwise.

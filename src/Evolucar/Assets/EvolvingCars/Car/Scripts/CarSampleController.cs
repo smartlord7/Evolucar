@@ -102,7 +102,7 @@ namespace GeneticSharp.Runner.UnityApp.Car
                 {
                     m_fitness.ChromosomesToBeginEvaluation.TryTake(out CarChromosome c);
                     c.Evaluated = false;
-                    c.MaxDistance = 0;
+                    c.MaxDistanceCurrent = 0;
 
                     var evaluation = m_evaluationPool.Get(m_lastPosition);
                     evaluation.name = c.ID;
