@@ -112,14 +112,14 @@ namespace Assets.EvolvingCars.TP2
 
             if (c.IsRoadComplete)
             {
-                f += 0.7f;
+                f += 0.6f;
             }
             else
             {
-                f += 0.7f * (c.MaxDistanceCurrent / c.config.RoadLength);
+                f += 0.6f * (c.MaxDistanceCurrent / c.config.RoadLength);
             }
 
-            var massFactor = 0.2f * (1.0f - c.CarMass / GetMaxMass(c));
+            var massFactor = 0.3f * (1.0f - c.CarMass / GetMaxMass(c));
             f += massFactor;
 
             var velocityFactor = 0.075f * (c.MaxVelocityPrevious == 0 ? 1 : Mathf.Clamp(c.MaxVelocityCurrent / c.MaxVelocityPrevious, 0.0f, 1.0f));
@@ -139,7 +139,7 @@ namespace Assets.EvolvingCars.TP2
                 var wheelRadiusBits = CarVectorPhenotypeEntity.WheelRadiusBits;
                 var maxMass = 0.0f;
 
-                maxMass += (float) Math.Pow(2, wheelRadiusBits) - 1;
+                maxMass += phenotypes.Length * (float) Math.Pow(2, wheelRadiusBits) - 1;
                 maxMass += 1.0f + (float) + points.Sum(p => Math.Pow(2, vectorMagBits)) * 2.0f;
 
             return maxMass;
