@@ -771,7 +771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7f6b0b763b1446b9871fffb753082d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SimulationsGrid: {x: 20, y: 20}
+  SimulationsGrid: {x: 4, y: 5}
   EvaluationDistance: {x: 0, y: 100, z: 0}
   EvaluationPrefab: {fileID: 1313096203398122, guid: d2af270efb6d44d9dbbcef0597e0c111,
     type: 3}

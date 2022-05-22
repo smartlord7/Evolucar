@@ -62,6 +62,7 @@
      <Compile Include="Assets\EvolvingCars\Car\Scripts\RoadController.cs" />
      <Compile Include="Assets\EvolvingCars\Car\Scripts\DrawPolygon.cs" />
      <Compile Include="Assets\EvolvingCars\Car\Scripts\CarSampleConfig.cs" />
+     <Compile Include="Assets\EvolvingCars\TP2\MathUtil.cs" />
      <Compile Include="Assets\EvolvingCars\Commons\SampleContainer.cs" />
      <Compile Include="Assets\EvolvingCars\Car\Scripts\DrawJoint.cs" />
      <Compile Include="Assets\EvolvingCars\Car\Scripts\SimulationGrid.cs" />
@@ -78,7 +79,6 @@
      <Compile Include="Assets\EvolvingCars\Car\Scripts\CarSampleController.cs" />
      <Compile Include="Assets\EvolvingCars\Commons\FollowChromosomeCam.cs" />
      <Compile Include="Assets\EvolvingCars\Car\Scripts\TerminationConditions\CarTermination.cs" />
-     <Compile Include="Assets\EvolvingCars\TP2\MathUtil.cs" />
      <None Include="Assets\EvolvingCars\Commons\Sprites\readme.txt" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.29f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

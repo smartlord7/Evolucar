@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using GeneticSharp.Domain.Chromosomes;
 using GeneticSharp.Runner.UnityApp.Car;
 using UnityEngine;
 
@@ -20,10 +19,11 @@ namespace Assets.EvolvingCars.TP2
 
             if (c.NumberOfWheels < 2)
             {
-                c.NumberOfWheels -= c.NumberOfWheels * 25;
-            } else if (c.NumberOfWheels > 4)
+                fitness -= c.NumberOfWheels * 25;
+            }
+            else if (c.NumberOfWheels > 4)
             {
-                c.NumberOfWheels -= (c.NumberOfWheels - 4) * 10;
+                fitness -= (c.NumberOfWheels - 4) * 10;
             }
 
             return fitness;
@@ -43,7 +43,8 @@ namespace Assets.EvolvingCars.TP2
             if (c.NumberOfWheels <= 1)
             {
                 c.NumberOfWheels -= 300;
-            } else if (c.NumberOfWheels == 2)
+            }
+            else if (c.NumberOfWheels == 2)
             {
                 c.NumberOfWheels -= 50;
             }
@@ -54,39 +55,14 @@ namespace Assets.EvolvingCars.TP2
 
         public static float FITNESS_FUNCTION_5(CarChromosome c)
         {
-            var f = 1f;
-
-            if (c.IsRoadComplete)
-            {
-                f = 4;
-            }
-
-            var fitness = f * c.MaxDistanceCurrent + 12 * c.MaxVelocityCurrent - 1.5f * c.CarMass - 7 * c.MaxDistanceTimeCurrent;
-
-            if (c.NumberOfWheels <= 1)
-            {
-                c.NumberOfWheels -= 400;
-            }
-            else if (c.NumberOfWheels == 2)
-            {
-                c.NumberOfWheels -= 25;
-            }
-
-            return fitness;
-        }
-
-        public static float FITNESS_FUNCTION_6(CarChromosome c)
-        {
             if (c.MaxDistanceCurrent > 360 && !c.IsRoadComplete)
             {
                 return 0;
             }
 
-            var f = 1f;
+            var f = c.MaxDistanceCurrent;
 
-            f *= c.MaxDistanceCurrent % 360;
-
-            if (f >= 230)
+            if (f > 230)
             {
                 f += (f - 230) * 30;
             }
@@ -101,7 +77,7 @@ namespace Assets.EvolvingCars.TP2
             return f + f2 * 1000;
         }
 
-        public static float FITNESS_FUNCTION_7(CarChromosome c)
+        public static float FITNESS_FUNCTION_6(CarChromosome c)
         {
             var f = 0.0f;
 
@@ -112,35 +88,36 @@ namespace Assets.EvolvingCars.TP2
 
             if (c.IsRoadComplete)
             {
-                f += 0.6f;
+                f += 0.5f;
             }
             else
             {
-                f += 0.6f * (c.MaxDistanceCurrent / c.config.RoadLength);
+                f += 0.5f * (c.MaxDistanceCurrent / c.config.RoadLength);
             }
 
             var massFactor = 0.3f * (1.0f - c.CarMass / GetMaxMass(c));
             f += massFactor;
 
-            var velocityFactor = 0.075f * (c.MaxVelocityPrevious == 0 ? 1 : Mathf.Clamp(c.MaxVelocityCurrent / c.MaxVelocityPrevious, 0.0f, 1.0f));
+            var velocityFactor = 0.15f * (c.MaxVelocityPrevious == 0 ? 1 : Mathf.Clamp(c.MaxVelocityCurrent / c.MaxVelocityPrevious, 0.0f, 1.0f));
             f += velocityFactor;
 
-            var nWheelsFactor =  0.025f * MathUtil.Gaussian(c.NumberOfWheels, 3.0f, 2.0f);
+            var nWheelsFactor = 0.05f * MathUtil.Gaussian(c.NumberOfWheels, 3.0f, 2.0f);
             f += nWheelsFactor;
 
             return f * 100;
         }
 
-        private static float GetMaxMass(CarChromosome c) {
-                var phenotypes = c.GetPhenotypes();
-                var points = phenotypes.Select(p => p.Vector).ToArray();
-                var nWheels = c.GetPhenotypes().Length;
-                var vectorMagBits = CarVectorPhenotypeEntity.VectorSizeBits;
-                var wheelRadiusBits = CarVectorPhenotypeEntity.WheelRadiusBits;
-                var maxMass = 0.0f;
+        private static float GetMaxMass(CarChromosome c)
+        {
+            var phenotypes = c.GetPhenotypes();
+            var points = phenotypes.Select(p => p.Vector).ToArray();
+            var nWheels = c.GetPhenotypes().Length;
+            var vectorMagBits = CarVectorPhenotypeEntity.VectorSizeBits;
+            var wheelRadiusBits = CarVectorPhenotypeEntity.WheelRadiusBits;
+            var maxMass = 0.0f;
 
-                maxMass += phenotypes.Length * (float) Math.Pow(2, wheelRadiusBits) - 1;
-                maxMass += 1.0f + (float) + points.Sum(p => Math.Pow(2, vectorMagBits)) * 2.0f;
+            maxMass += phenotypes.Length * (float)Math.Pow(2, wheelRadiusBits) - 1;
+            maxMass += 1.0f + (float)+points.Sum(p => Math.Pow(2, vectorMagBits)) * 2.0f;
 
             return maxMass;
         }
