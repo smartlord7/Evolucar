@@ -11,7 +11,7 @@ public static class GeneticAlgorithmConfigurations
     public static int tournamentSize = 50;
     public static int maximumNumberOfGenerations = 50;
     public static int eliteSize = 15;
-    public static Func<CarChromosome, float> fitnessFunction = FitnessFunctions.FITNESS_FUNCTION_7;
+    public static Func<CarChromosome, float> fitnessFunction = FitnessFunctions.FITNESS_FUNCTION_6;
     public static SinglePointCrossover crossoverOperator = new SinglePointCrossover(crossoverProbability);
     public static SinglePointMutation mutationOperator = new SinglePointMutation();
     public static Tournament parentSelection = new Tournament(tournamentSize);
